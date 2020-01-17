@@ -1,0 +1,94 @@
+<html>
+
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            position: absolute;
+            width: 50%;
+            padding-left: 25%;
+            padding-top: 5%;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+
+        tr:nth-child(even){background-color: #f2f2f2}
+
+        th {
+            background-color: #89ADD8;
+            color: white;
+            border-style: solid;
+            border-color: aliceblue;
+            border-width: 1px;
+            font-weight: normal;
+        }
+
+        .table-title {
+            background-color: #7998c2;
+        }
+
+        input[type=text] {
+            border-style:solid;
+            border-color:rgba(145, 145, 145, 1);
+            border-width: 1px;
+            height: 30px;
+            padding-left: 10px;
+            width: 75%;
+        }
+
+        input[type=submit] {
+            background-color: rgb(137, 173, 216);
+            color: white;
+            border: none;
+            text-align: center;
+            height: 30px;
+            width: 20%;
+        }
+
+    </style>
+
+    <body>
+    <h3>Welcome to my <strike>awesome</strike> word counter!</h3>
+        <div>
+            <form action="/wc" method="get">
+                <input type="text" name="target" placeholder="URL...">
+                <input type="submit" class="button" value="Submit"></input>
+                <br>
+                <br>
+                Ignore cache?
+                <input type="radio" name="force" value=true>Yes
+                <input type="radio" name="force" value=false>No
+            </form>
+        <div>
+
+        <div>
+            <p>Total number of words: ${totalWordCount}</p>
+            <table>
+                <tr>
+                    <th class="table-title" colspan="2">Most frequent words</th>
+                </tr>
+                <tr>
+                    <th>Word</th>
+                    <th>Frequency</th>
+                </tr>
+                #foreach( ${word} in ${topWords} )
+                    <tr>
+                        <td>
+                            ${word.getKey()}
+                        </td>
+                        <td>
+                            ${word.getValue()}
+                        </td>
+                    </tr>
+                #end
+            </table>
+        </div>
+    </body>
+</html>

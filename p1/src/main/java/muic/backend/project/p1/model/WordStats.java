@@ -1,5 +1,6 @@
 package muic.backend.project.p1.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
@@ -8,15 +9,19 @@ import java.util.Map;
 
 public class WordStats {
 
+    @JsonIgnore
     private String target;
 
     @JsonProperty(value = "total_words")
     private Integer totalWordCount;
+
     @JsonProperty(value = "top10")
     private List<Map.Entry<String, Integer>> topWords;
 
+    @JsonIgnore
     private Instant lastFetch;
 
+    @JsonIgnore
     private String eTag;
 
     public WordStats(String target, Instant lastFetch, String eTag, int totalWordCount, List<Map.Entry<String, Integer>> topWords){

@@ -51,7 +51,8 @@ public class FormatTest {
                         .perform(get("/wc?target=" + "https://www.google.com")
                                 .accept(formats.get(i)))
                         .andExpect(status().isOk())
-                        .andExpect(content().contentType(formats.get(i) + ";charset=ISO-8859-1"));
+                        .andExpect(content().contentType(formats.get(i) + ";charset=ISO-8859-1"))
+                        .andExpect(content().string(expectedResults.get(i)));
 
             } catch (Exception e) {
                 e.printStackTrace();

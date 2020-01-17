@@ -1,6 +1,6 @@
 package muic.backend.project.p1.service;
 
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.Pair;
 import muic.backend.project.p1.model.WordStats;
 
 import org.junit.jupiter.api.Test;

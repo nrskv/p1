@@ -1,6 +1,7 @@
 package muic.backend.project.p1;
 
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -75,7 +76,7 @@ public class FormatTest {
         expectedResults.add(plainResult);
         expectedResults.add(jsonResult);
 
-        return new Pair<>(formats, expectedResults);
+        return new ImmutablePair<>(formats, expectedResults);
     }
 
     public String readTextFile(String fileName){

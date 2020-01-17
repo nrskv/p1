@@ -1,6 +1,7 @@
 package muic.backend.project.p1.service;
 
-import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import muic.backend.project.p1.model.WordStats;
 import org.springframework.stereotype.Service;
 
@@ -60,7 +61,7 @@ public class TextAnalyzerService {
 
         List<Map.Entry<String, Integer>> topWords = getTopTenWords(individualWordCount);
 
-        return new Pair<>(totalWordCount, topWords);
+        return new ImmutablePair<>(totalWordCount, topWords);
     }
 
     private boolean isAlphabet(char c){

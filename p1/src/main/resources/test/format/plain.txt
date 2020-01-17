@@ -1,0 +1,1 @@
+Total number of words from the input URL is 7. The most frequent words are  search [2] , chrome [2] , gmail [1] , english [1] , and  google [1] .

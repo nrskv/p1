@@ -1,4 +1,5 @@
 FROM openjdk:8-jdk-alpine
+WORKDIR /tmp
 
 COPY mvnw /tmp/
 COPY .mvn /tmp/

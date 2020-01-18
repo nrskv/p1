@@ -10,7 +10,5 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Build the Docker image
-      run: docker build -t p1 ./p1
-    - name: Run the docker image
+    - name: docker compose
       run: docker-compose up -d

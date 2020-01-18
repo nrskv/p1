@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on: [push]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: docker compose
+      run: docker-compose up -d
+    - name: install apache benchmark
+      run: sudo apt-get install apache2-utils
+    - name: benchmark testing
+      run: ab -c 5 -n 10 http://localhost:8080/wc?target=http://example.com

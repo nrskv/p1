@@ -3,7 +3,7 @@ WORKDIR /workspace/app
 
 COPY mvnw .
 COPY .mvn .mvn
-COPY pom.xml .
+COPY pom.xml pom.xml
 COPY src src
 
 RUN ./mvnw clean install

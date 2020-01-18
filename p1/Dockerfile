@@ -1,9 +1,8 @@
 FROM openjdk:8-jdk-alpine
-WORKDIR /workspace/app
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml /pom.xml
+COPY mvnw /tmp/
+COPY .mvn /tmp/
+COPY pom.xml /tmp/
 COPY src src
 
 RUN ./mvnw clean install

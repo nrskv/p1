@@ -86,10 +86,10 @@ public class CacheTest {
     @Test
     public void testScheduledCacheClear(){
         try {
-            LOGGER.info("This test takes at least 1 minute");
+            LOGGER.info("This test takes at least 3 minute");
             WordStats request1 = analyzerService.analyze("https://en.wikipedia.org/wiki/Example.com", false);
             WordStats request2 = analyzerService.analyze("https://en.wikipedia.org/wiki/Example.com", false);
-            wait(60000);
+            wait(180000);
             WordStats request4 = analyzerService.analyze("https://en.wikipedia.org/wiki/Example.com", false);
 
             Assert.assertEquals(request1, request2);

@@ -61,7 +61,7 @@ public class AnalyzerService {
         WordStats ws = cache.get(target, WordStats.class);
         Instant lastFetch = ws.getLastFetch();
         long elapsedTime = Duration.between(lastFetch, Instant.now()).toMillis();
-        return elapsedTime < 60000;
+        return elapsedTime < 30000;
     }
 
     private boolean isModified(String target) throws IOException{

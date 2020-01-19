@@ -57,9 +57,9 @@ public class CacheTest {
         try {
             LOGGER.info("This test takes at least 1.5 minutes");
             //Etag not changed
-            WordStats request1 = analyzerService.analyze("http://example.com", false);
+            WordStats request1 = analyzerService.analyze("https://www.thepolyglotdeveloper.com/css/custom.min.css", false);
             wait(30000);
-            WordStats request2 = analyzerService.analyze("http://example.com", false);
+            WordStats request2 = analyzerService.analyze("https://www.thepolyglotdeveloper.com/css/custom.min.css", false);
 
             Assert.assertEquals(request1, request2);
 
@@ -89,7 +89,7 @@ public class CacheTest {
             LOGGER.info("This test takes at least 3 minute");
             WordStats request1 = analyzerService.analyze("https://en.wikipedia.org/wiki/Example.com", false);
             WordStats request2 = analyzerService.analyze("https://en.wikipedia.org/wiki/Example.com", false);
-            wait(180000);
+            wait(60000);
             WordStats request4 = analyzerService.analyze("https://en.wikipedia.org/wiki/Example.com", false);
 
             Assert.assertEquals(request1, request2);

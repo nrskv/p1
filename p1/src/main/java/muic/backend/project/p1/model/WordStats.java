@@ -72,7 +72,7 @@ public class WordStats {
         return eTag;
     }
 
-    private void seteTag(String eTag) {
+    public void seteTag(String eTag) {
         this.eTag = eTag;
     }
 }

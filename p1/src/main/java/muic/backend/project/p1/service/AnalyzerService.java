@@ -3,6 +3,7 @@ package muic.backend.project.p1.service;
 import muic.backend.project.p1.model.WordStats;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
@@ -19,7 +20,6 @@ import java.net.URLConnection;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.Objects;
-import java.util.logging.Logger;
 
 @Service
 public class AnalyzerService {
@@ -32,7 +32,7 @@ public class AnalyzerService {
 
     private static final String CACHENAME = "wordStatsCache";
 
-    private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AnalyzerService.class);
 
     public WordStats analyze(String target, Boolean force) throws IOException{
         if(isCached(target)){
@@ -52,7 +52,7 @@ public class AnalyzerService {
     }
 
     private void evictCache(String target){
-        LOGGER.info("Evict cache for " + target);
+        LOGGER.info("Cache for " + target + " evicted");
         cacheManager.getCache(CACHENAME).evict(target);
     }
 
@@ -61,7 +61,7 @@ public class AnalyzerService {
         WordStats ws = cache.get(target, WordStats.class);
         Instant lastFetch = ws.getLastFetch();
         long elapsedTime = Duration.between(lastFetch, Instant.now()).toMillis();
-        return elapsedTime > 60000;
+        return elapsedTime < 60000;
     }
 
     private boolean isModified(String target) throws IOException{

@@ -41,7 +41,7 @@ public class CacheConcurrencyTest extends AbstractTestNGSpringContextTests{
         if(refFetchTime == null){
             refFetchTime = time;
         }
-        Assert.assertTrue(refFetchTime-5 <= time && time <= refFetchTime+5 );
+        Assert.assertTrue(refFetchTime-10 <= time && time <= refFetchTime+10 );
     }
 
     public long getFetchTime(String target){

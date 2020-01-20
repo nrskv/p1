@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,9 @@ public class WordStats {
 
     @JsonIgnore
     private Instant lastFetch;
+
+    @JsonProperty(value = "last_fetch")
+    private Date lastFetchDate;
 
     @JsonIgnore
     private String eTag;
@@ -66,6 +70,7 @@ public class WordStats {
 
     private void setLastFetch(Instant lastFetch) {
         this.lastFetch = lastFetch;
+        this.lastFetchDate = Date.from(lastFetch);
     }
 
     public String geteTag() {

@@ -1,5 +1,7 @@
 package muic.backend.project.p1;
 
+import muic.backend.project.p1.model.WordStats;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,11 +12,14 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.web.servlet.MockMvc;
 
+import org.springframework.test.web.servlet.ResultActions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
 import java.time.Instant;
+import java.util.Date;
+import java.util.Random;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
@@ -32,27 +37,30 @@ public class CacheConcurrencyTest extends AbstractTestNGSpringContextTests{
     @Test(threadPoolSize = 4, invocationCount = 4,  timeOut = 30000)
     public void testCacheConcurrency() throws Exception {
         String workingTarget = "https://muic.mahidol.ac.th/eng/";
-        long fetchTime = getFetchTime(workingTarget);
-        LOGGER.info(String.valueOf(fetchTime));
-        checkFetchTime(fetchTime);
+        Long lastFetch = getLastFetch(workingTarget);
+        LOGGER.info("last fetch: " + lastFetch);
+        compareFetchTime(lastFetch);
     }
 
-    public void checkFetchTime(long time){
+    public void compareFetchTime(Long time){
         if(refFetchTime == null){
             refFetchTime = time;
         }
-        Assert.assertTrue(refFetchTime-100 <= time && time <= refFetchTime+100 );
+        Assert.assertEquals(time, refFetchTime);
     }
 
-    public long getFetchTime(String target){
-        Instant start = Instant.now();
+    public Long getLastFetch(String target){
         try {
-            this.mockMvc.perform(get("/wc?target=" + target)
-                    .accept(MediaType.TEXT_HTML));
+            String result = this.mockMvc.perform(get("/wc?target=" + target)
+                    .accept(MediaType.APPLICATION_JSON_VALUE))
+                    .andReturn()
+                    .getResponse()
+                    .getContentAsString();
+            String[] splitted = result.split("[,:}]");
+            return Long.parseLong(splitted[splitted.length-1]);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Instant finish = Instant.now();
-        return Duration.between(start, finish).toMillis();
+        return new Random().nextLong();
     }
 }

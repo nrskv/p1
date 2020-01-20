@@ -32,24 +32,24 @@ public class CacheConcurrencyTest extends AbstractTestNGSpringContextTests{
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CacheTest.class);
 
-    private Long refFetchTime = null;
+    private String refHash = null;
 
     @Test(threadPoolSize = 4, invocationCount = 4,  timeOut = 30000)
     public void testCacheConcurrency() throws Exception {
         String workingTarget = "https://muic.mahidol.ac.th/eng/";
-        Long lastFetch = getLastFetch(workingTarget);
-        LOGGER.info("last fetch: " + lastFetch);
-        compareFetchTime(lastFetch);
+        String hash = getResultHash(workingTarget);
+        LOGGER.info("hash: " + hash);
+        compareCacheHash(hash);
     }
 
-    public void compareFetchTime(Long time){
-        if(refFetchTime == null){
-            refFetchTime = time;
+    public void compareCacheHash(String hash){
+        if(refHash == null){
+            refHash = hash;
         }
-        Assert.assertEquals(time, refFetchTime);
+        Assert.assertEquals(hash, refHash);
     }
 
-    public Long getLastFetch(String target){
+    public String getResultHash(String target){
         try {
             String result = this.mockMvc.perform(get("/wc?target=" + target)
                     .accept(MediaType.APPLICATION_JSON_VALUE))
@@ -57,10 +57,10 @@ public class CacheConcurrencyTest extends AbstractTestNGSpringContextTests{
                     .getResponse()
                     .getContentAsString();
             String[] splitted = result.split("[,:}]");
-            return Long.parseLong(splitted[splitted.length-1]);
+            return splitted[splitted.length-1];
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return new Random().nextLong();
+        return new Random().toString();
     }
 }

@@ -22,8 +22,8 @@ public class WordStats {
     @JsonIgnore
     private Instant lastFetch;
 
-    @JsonProperty(value = "last_fetch")
-    private Date lastFetchDate;
+    @JsonProperty(value = "cache_hash")
+    private String cacheHash;
 
     @JsonIgnore
     private String eTag;
@@ -38,6 +38,7 @@ public class WordStats {
         seteTag(eTag);
         setTotalWordCount(wordCount);
         setTopWords(topTen);
+        setCacheHash();
     }
 
     public Integer getTotalWordCount() {
@@ -70,7 +71,6 @@ public class WordStats {
 
     private void setLastFetch(Instant lastFetch) {
         this.lastFetch = lastFetch;
-        this.lastFetchDate = Date.from(lastFetch);
     }
 
     public String geteTag() {
@@ -79,5 +79,13 @@ public class WordStats {
 
     public void seteTag(String eTag) {
         this.eTag = eTag;
+    }
+
+    public String getCacheHash() {
+        return cacheHash;
+    }
+
+    private void setCacheHash() {
+        this.cacheHash = this.toString();
     }
 }
